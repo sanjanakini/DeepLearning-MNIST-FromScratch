@@ -38,9 +38,9 @@ Install dependencies:
 pip install numpy matplotlib scikit-learn keras
 
 Run:
-python mlp.py
-python autoencoder.py
-python rbm.py
+1)python mlp.py
+2)python autoencoder.py
+3)python rbm.py
 
 Author
 Name: Sanjana Kini
