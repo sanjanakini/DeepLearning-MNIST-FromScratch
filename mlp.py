@@ -3,10 +3,7 @@ import matplotlib.pyplot as plt
 from sklearn.datasets import fetch_openml
 from sklearn.model_selection import train_test_split
 
-# ===============================
-# 1. Load Dataset (PURE NUMPY)
-# ===============================
-
+#Load Dataset 
 print("Loading MNIST...")
 
 mnist = fetch_openml('mnist_784', as_frame=False)
@@ -24,10 +21,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 print("Training started...")
 
-# ===============================
-# 2. Hyperparameters
-# ===============================
-
+#Hyperparameters
 input_size = 784
 hidden_size = 128
 output_size = 10
@@ -36,10 +30,7 @@ learning_rate = 0.01
 epochs = 10
 batch_size = 64
 
-# ===============================
-# 3. Initialize Weights
-# ===============================
-
+#Initialize Weights
 np.random.seed(42)
 
 W1 = np.random.randn(input_size, hidden_size) * 0.01
@@ -48,10 +39,7 @@ b1 = np.zeros((1, hidden_size))
 W2 = np.random.randn(hidden_size, output_size) * 0.01
 b2 = np.zeros((1, output_size))
 
-# ===============================
-# 4. Activation Functions
-# ===============================
-
+#Activation Functions
 def relu(x):
     return np.maximum(0, x)
 
@@ -62,17 +50,11 @@ def softmax(x):
     exp = np.exp(x - np.max(x, axis=1, keepdims=True))
     return exp / np.sum(exp, axis=1, keepdims=True)
 
-# ===============================
-# 5. One-hot Encoding
-# ===============================
-
+#One-hot Encoding
 def one_hot(y, num_classes):
     return np.eye(num_classes)[y]
 
-# ===============================
-# 6. Training Loop
-# ===============================
-
+#Training Loop
 loss_history = []
 accuracy_history = []
 
@@ -114,7 +96,7 @@ for epoch in range(epochs):
         W1 -= learning_rate * dW1
         b1 -= learning_rate * db1
 
-    # ===== End of Epoch =====
+    #  End of Epoch 
 
     # Full training evaluation
     Z1 = np.dot(X_train, W1) + b1
@@ -133,10 +115,7 @@ for epoch in range(epochs):
 
     print(f"Epoch {epoch+1}/{epochs}  Loss: {loss:.4f}  Accuracy: {accuracy:.4f}")
 
-# ===============================
-# 7. Test Accuracy
-# ===============================
-
+#Test Accuracy
 Z1 = np.dot(X_test, W1) + b1
 A1 = relu(Z1)
 Z2 = np.dot(A1, W2) + b2
@@ -147,10 +126,7 @@ test_accuracy = np.mean(test_predictions == y_test)
 
 print("\nFinal Test Accuracy:", test_accuracy)
 
-# ===============================
-# 8. Plot Results
-# ===============================
-
+#Plot Results
 plt.figure()
 plt.plot(loss_history)
 plt.title("Training Loss")
@@ -165,4 +141,5 @@ plt.title("Training Accuracy")
 plt.xlabel("Epoch")
 plt.ylabel("Accuracy")
 plt.savefig("accuracy_plot.png")
+
 plt.show()
